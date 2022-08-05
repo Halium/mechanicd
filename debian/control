@@ -1,0 +1,21 @@
+Source: mechanicd
+Section: libs
+Priority: optional
+Maintainer: Alfred Neumayer <dev.beidl@gmail.com>
+Build-Depends: cmake,
+               cmake-extras (>= 0.10),
+               debhelper (>= 9),
+               pkg-config,
+               qt5-default,
+               qtbase5-dev,
+Standards-Version: 3.9.5
+Homepage: https://github.com/halium/mechanicd
+
+Package: mechanicd
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+Description: mechanicd - Manage Android-isms kernel features on GNU/Linux systems
+ .
+ This package provides the mechanicd management daemon.
