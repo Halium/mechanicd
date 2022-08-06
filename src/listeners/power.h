@@ -10,6 +10,9 @@ class PowerListener : public QObject, public PowerInterface
 
 public:
     PowerListener(QObject* parent = nullptr);
+
+Q_SIGNALS:
+    virtual void screenStateChanged(ScreenState) override;
 };
 
 #endif

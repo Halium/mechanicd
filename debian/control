@@ -6,6 +6,7 @@ Build-Depends: cmake,
                cmake-extras (>= 0.10),
                debhelper (>= 9),
                pkg-config,
+               libsystemd-dev,
                qt5-default,
                qtbase5-dev,
 Standards-Version: 3.9.5
@@ -16,6 +17,6 @@ Architecture: any
 Multi-Arch: same
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-Description: mechanicd - Manage Android-isms kernel features on GNU/Linux systems
+Description: mechanicd - Manage Android-isms & kernel features on GNU/Linux systems
  .
  This package provides the mechanicd management daemon.

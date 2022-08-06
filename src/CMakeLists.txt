@@ -11,6 +11,12 @@ add_executable(
 
     listeners/power.cpp
     listeners/session.cpp
+    listeners/session/logind.cpp
+    listeners/service.cpp
+    listeners/service/upstart.cpp
+    tuners/schedtune.cpp
+    dbus/scheduling.cpp
+
     main.cpp
 )
 

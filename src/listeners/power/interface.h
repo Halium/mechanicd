@@ -13,10 +13,11 @@ Q_DECLARE_METATYPE(ScreenState);
 class PowerInterface
 {
 public:
+    PowerInterface() = default;
     virtual ~PowerInterface() {}
 
 Q_SIGNALS:
-    void screenStateChanged(ScreenState);
+    virtual void screenStateChanged(ScreenState) = 0;
 };
 Q_DECLARE_INTERFACE(PowerInterface, "PowerInterface")
 
