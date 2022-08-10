@@ -22,9 +22,12 @@ int main(int argc, char** argv)
         exit(1);
     }
 
+#if 0
     PowerListener power;
     SessionListener session;
     ServiceListener services;
+#endif
+
     SchedTuneTuner schedTuneTuner;
     RenderThreadTuner renderThreadTuner;
     DBusScheduling dbusScheduling;
