@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=org.halium.mechanicd
+Exec=/usr/bin/mechanicd
+User=root
+SystemdService=mechanicd.service

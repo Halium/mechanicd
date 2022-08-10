@@ -1,0 +1,13 @@
+[Unit]
+Description=Manage Android-isms & kernel features on GNU/Linux systems
+Requires=dbus.service
+After=dbus.service
+
+[Service]
+Type=dbus
+BusName=org.halium.mechanicd
+Restart=always
+ExecStart=/usr/bin/mechanicd
+
+[Install]
+WantedBy=basic.target
