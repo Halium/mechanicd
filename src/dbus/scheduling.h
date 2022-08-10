@@ -14,10 +14,10 @@ public:
     ~DBusScheduling();
 
 public Q_SLOTS:
-    void requestSchedulingChange(int threadId);
+    void requestSchedulingChange();
 
 Q_SIGNALS:
-    void schedulingRequest(int processId, quint64 threadId);
+    void schedulingRequest(int processId);
 };
 
 #endif

@@ -10,9 +10,9 @@ DBusScheduling::~DBusScheduling()
 {
 }
 
-void DBusScheduling::requestSchedulingChange(int threadId)
+void DBusScheduling::requestSchedulingChange()
 {
     const auto service = message().service();
     const auto pid = connection().interface()->servicePid(service); 
-    Q_EMIT schedulingRequest(pid, threadId);
+    Q_EMIT schedulingRequest(pid);
 }

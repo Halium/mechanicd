@@ -15,6 +15,7 @@ add_executable(
     listeners/service.cpp
     listeners/service/upstart.cpp
     tuners/schedtune.cpp
+    tuners/renderthread.cpp
     dbus/scheduling.cpp
 
     main.cpp

@@ -9,6 +9,8 @@ class SchedTuneTuner : public QObject
 
 public:
     SchedTuneTuner(QObject* parent = nullptr);
+
+    void tunePid(pid_t pid);
 };
 
 #endif
