@@ -17,6 +17,7 @@ add_executable(
     tuners/schedtune.cpp
     tuners/renderthread.cpp
     dbus/scheduling.cpp
+    dbus/wifimodeswitch.cpp
 
     main.cpp
 )
@@ -26,6 +27,7 @@ target_link_libraries(
 
     Qt5::Core
     Qt5::DBus
+    -lhybris-common
 )
 
 install(TARGETS mechanicd DESTINATION "${CMAKE_INSTALL_BINDIR}")

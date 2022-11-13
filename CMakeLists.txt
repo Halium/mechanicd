@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD 14)
 include(FindPkgConfig)
 find_package(Qt5Core 5.9 REQUIRED)
 find_package(Qt5DBus 5.9 REQUIRED)
+pkg_check_modules(ANDROID android-headers-28)
 
 # Disable all deprecated qt functions in and before qt version 5.9
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050900)

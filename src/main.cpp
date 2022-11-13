@@ -12,6 +12,7 @@
 #include "tuners/renderthread.h"
 #include "tuners/schedtune.h"
 #include "dbus/scheduling.h"
+#include "dbus/wifimodeswitch.h"
 
 int main(int argc, char** argv)
 {
@@ -31,11 +32,19 @@ int main(int argc, char** argv)
     SchedTuneTuner schedTuneTuner;
     RenderThreadTuner renderThreadTuner;
     DBusScheduling dbusScheduling;
+    DBusWifiModeSwitch dbusWifiModeSwitch;
 
     if (!QDBusConnection::systemBus().registerObject("/org/halium/mechanicd/Scheduling",
                                                       &dbusScheduling,
                                                       QDBusConnection::ExportAllSlots)) {
         qCritical() << "Failed to register scheduling object";
+        exit(1);
+    }
+
+    if (!QDBusConnection::systemBus().registerObject("/org/halium/mechanicd/WifiMode",
+                                                      &dbusWifiModeSwitch,
+                                                      QDBusConnection::ExportAllSlots)) {
+        qCritical() << "Failed to register wifi mode object";
         exit(1);
     }
 
