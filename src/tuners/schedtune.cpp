@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QDir>
 #include <QString>
 #include <QTextStream>
 
@@ -44,9 +45,19 @@ void SchedTuneTuner::tunePid(pid_t pid)
         if (cgroupParts[1] != QStringLiteral("schedtune"))
             continue;
 
+
+        QDir schedtuneDir("/sys/fs/cgroup/schedtune/mechanicd");
+
+        if (!schedtuneDir.exists()) {
+            schedtuneDir.mkdir("/sys/fs/cgroup/schedtune/mechanicd");
+        }
+
+        if (!schedtuneDir.exists())
+            continue;
+
         // Main cgroup control file for adjusting frequency boosting
         {
-            const QString booster = QStringLiteral("/sys/fs/cgroup/schedtune/%1/schedtune.boost").arg(cgroupParts[2]);
+            const QString booster = QStringLiteral("/sys/fs/cgroup/schedtune/mechanicd/%1/schedtune.boost").arg(cgroupParts[2]);
             QFile boosterFile(booster);
 
             if (!boosterFile.exists())
@@ -61,7 +72,7 @@ void SchedTuneTuner::tunePid(pid_t pid)
 
         // Optional schedtune value found on the JingPad
         {
-            const QString load_pct = QStringLiteral("/sys/fs/cgroup/schedtune/%1/schedtune.init_task_load_pct").arg(cgroupParts[2]);
+            const QString load_pct = QStringLiteral("/sys/fs/cgroup/schedtune/mechanicd/%1/schedtune.init_task_load_pct").arg(cgroupParts[2]);
             QFile loadPctFile(load_pct);
 
             if (!loadPctFile.exists())
@@ -72,6 +83,21 @@ void SchedTuneTuner::tunePid(pid_t pid)
 
             QTextStream textStream(&loadPctFile);
             textStream << "45";
+        }
+
+        // Write the pid
+        {
+            const QString cgroup_procs = QStringLiteral("/sys/fs/cgroup/schedtune/mechanicd/%1/cgroup.procs").arg(cgroupParts[2]);
+            QFile cgroupProcsFile(cgroup_procs);
+
+            if (!cgroupProcsFile.exists())
+                continue;
+
+            if (!cgroupProcsFile.open(QFile::WriteOnly))
+                continue;
+
+            QTextStream textStream(&cgroupProcsFile);
+            textStream << QString::number(pid);
         }
     }
 }
