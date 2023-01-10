@@ -55,6 +55,21 @@ void SchedTuneTuner::tunePid(pid_t pid)
         if (!schedtuneDir.exists())
             continue;
 
+        // Write the pid
+        {
+            const QString cgroup_procs = QStringLiteral("/sys/fs/cgroup/schedtune/mechanicd/%1/cgroup.procs").arg(cgroupParts[2]);
+            QFile cgroupProcsFile(cgroup_procs);
+
+            if (!cgroupProcsFile.exists())
+                continue;
+
+            if (!cgroupProcsFile.open(QFile::WriteOnly))
+                continue;
+
+            QTextStream textStream(&cgroupProcsFile);
+            textStream << QString::number(pid);
+        }
+
         // Main cgroup control file for adjusting frequency boosting
         {
             const QString booster = QStringLiteral("/sys/fs/cgroup/schedtune/mechanicd/%1/schedtune.boost").arg(cgroupParts[2]);
@@ -83,21 +98,6 @@ void SchedTuneTuner::tunePid(pid_t pid)
 
             QTextStream textStream(&loadPctFile);
             textStream << "45";
-        }
-
-        // Write the pid
-        {
-            const QString cgroup_procs = QStringLiteral("/sys/fs/cgroup/schedtune/mechanicd/%1/cgroup.procs").arg(cgroupParts[2]);
-            QFile cgroupProcsFile(cgroup_procs);
-
-            if (!cgroupProcsFile.exists())
-                continue;
-
-            if (!cgroupProcsFile.open(QFile::WriteOnly))
-                continue;
-
-            QTextStream textStream(&cgroupProcsFile);
-            textStream << QString::number(pid);
         }
     }
 }
