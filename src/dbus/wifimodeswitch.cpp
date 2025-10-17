@@ -13,6 +13,8 @@ DBusWifiModeSwitch::DBusWifiModeSwitch(QObject *parent)
     // Only fall back to libhardware_legacy as a last resort.
     wifi_handle = hybris_dlopen("libwifi-hal.so", RTLD_LAZY);
     if (!wifi_handle)
+        wifi_handle = hybris_dlopen("libwifi-hal-mtk.so", RTLD_LAZY);
+    if (!wifi_handle)
         wifi_handle = hybris_dlopen("libhardware_legacy.so", RTLD_LAZY);
 
     if (!wifi_handle)
